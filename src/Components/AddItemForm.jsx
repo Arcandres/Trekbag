@@ -1,18 +1,21 @@
+import { useRef, useState } from 'react';
 import Button from './Button';
 
-export default function AddItemForm({ setItems, itemText, setItemText }) {
+export default function AddItemForm({ onAddItem }) {
+  const [itemText, setItemText] = useState('');
+  const inputRef = useRef();
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!itemText.length) return;
+    if (!itemText) {
+      inputRef.current.focus();
 
-    const newItem = {
-      id: crypto.randomUUID(),
-      name: itemText,
-      packed: false,
-    };
+      return;
+    }
 
-    setItems((items) => [...items, newItem]);
+    onAddItem(itemText);
+    setItemText('');
   };
 
   const handleChange = (event) => {
@@ -22,7 +25,12 @@ export default function AddItemForm({ setItems, itemText, setItemText }) {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Add an item</h2>
-      <input value={itemText} onChange={handleChange} />
+      <input
+        ref={inputRef}
+        autoFocus
+        value={itemText}
+        onChange={handleChange}
+      />
       <Button>Add to list</Button>
     </form>
   );
