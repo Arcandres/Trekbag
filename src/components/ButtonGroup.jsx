@@ -1,35 +1,43 @@
+import { useContext } from 'react';
 import Button from './Button';
+import { ItemsContext } from '../contexts/ItemsContextProvider';
 
-export default function ButtonGroup({
-  onAllCompleted,
-  onRemoveAll,
-  onReset,
-  onAllInComplete,
-}) {
+export default function ButtonGroup() {
+  const {
+    handleAllCompleted,
+    handleAllInComplete,
+    handleReset,
+    handleRemoveAll,
+  } = useContext(ItemsContext);
+
   const buttons = [
     {
       text: 'Mark all as complete',
-      onClick: onAllCompleted,
+      onClick: handleAllCompleted,
     },
     {
       text: 'Mark all as incomplete',
-      onClick: onAllInComplete,
+      onClick: handleAllInComplete,
     },
     {
       text: 'Reset to initial',
-      onClick: onReset,
+      onClick: handleReset,
     },
     {
       text: 'Remove all items',
-      onClick: onRemoveAll,
+      onClick: handleRemoveAll,
     },
   ];
 
   return (
     <section className='button-group'>
-      {buttons.map(({ text, onClick }) => (
-        <Button key={onClick.toString()} onClick={onClick} bType='secondary'>
-          {text}
+      {buttons.map((button) => (
+        <Button
+          key={button.onClick.toString()}
+          onClick={button.onClick}
+          bType='secondary'
+        >
+          {button.text}
         </Button>
       ))}
     </section>
