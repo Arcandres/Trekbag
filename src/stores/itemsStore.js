@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { initialItems } from '../lib/constants';
 
-create((set) => ({
+export const useItemsStore = create((set) => ({
   items: initialItems,
   addItem: (itemName) => {
     const newItem = {
