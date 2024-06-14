@@ -10,18 +10,18 @@ export const useItemsStore = create((set) => ({
       packed: false,
     };
 
-    set((state) => ({ ...state.items, newItem }));
+    set((state) => ({ items: [...state.items, newItem] }));
   },
   deleteItem: (itemId) => {
     set((state) => {
-      const newItems = state.items.filter((item) => item.id !== itemId);
+      const newItem = state.items.filter((item) => item.id !== itemId);
 
-      return { items: newItems };
+      return { items: newItem };
     });
   },
   toggleItem: (itemId) => {
     set((state) => {
-      const newItems = state.items.map((item) => {
+      const newItem = state.items.map((item) => {
         if (item.id === itemId) {
           return { ...item, packed: !item.packed };
         }
@@ -29,7 +29,7 @@ export const useItemsStore = create((set) => ({
         return item;
       });
 
-      return { items: newItems };
+      return { items: newItem };
     });
   },
   allCompleted: () => {
