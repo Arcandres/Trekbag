@@ -2,11 +2,14 @@ import EmptyView from './EmptyView';
 import Select from 'react-select';
 import { options } from '../lib/constants';
 import { useState, useMemo } from 'react';
-import { useItemsContext } from '../hooks/useItemsContext';
+import { useItemsStore } from '../stores/itemsStore';
 
 export default function ItemList() {
+  const items = useItemsStore((state) => state.items);
+  const toggleItem = useItemsStore((state) => state.toggleItem);
+  const deleteItem = useItemsStore((state) => state.deleteItem);
+
   const [sortBy, setSortBy] = useState(options[0]);
-  const { items, handleDelete, handleToggle } = useItemsContext();
 
   const sortedItems = useMemo(() => {
     return [...items].sort((a, b) => {
@@ -44,27 +47,27 @@ export default function ItemList() {
         <Item
           key={item.id}
           item={item}
-          handleDelete={handleDelete}
-          handleToggle={handleToggle}
+          deleteItem={deleteItem}
+          toggleItem={toggleItem}
         />
       ))}
     </ul>
   );
 }
 
-export function Item({ item, handleDelete, handleToggle }) {
+export function Item({ item, deleteItem, toggleItem }) {
   return (
     <li className='item'>
       <label>
         <input
-          onChange={() => handleToggle(item.id)}
+          onChange={() => toggleItem(item.id)}
           checked={item.packed}
           type='checkbox'
         />
         {item.name}
       </label>
       <button
-        onClick={() => handleDelete(item.id)}
+        onClick={() => deleteItem(item.id)}
         style={{ color: 'red', fontWeight: 'bold' }}
       >
         x

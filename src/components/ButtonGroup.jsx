@@ -1,31 +1,28 @@
-import { useContext } from 'react';
+import { useItemsStore } from '../stores/itemsStore';
 import Button from './Button';
-import { ItemsContext } from '../contexts/ItemsContextProvider';
 
 export default function ButtonGroup() {
-  const {
-    handleAllCompleted,
-    handleAllInComplete,
-    handleReset,
-    handleRemoveAll,
-  } = useContext(ItemsContext);
+  const allCompleted = useItemsStore((state) => state.allCompleted);
+  const allInCompleted = useItemsStore((state) => state.allInCompleted);
+  const resetItems = useItemsStore((state) => state.resetItems);
+  const removeAllItems = useItemsStore((state) => state.removeAllItems);
 
   const buttons = [
     {
       text: 'Mark all as complete',
-      onClick: handleAllCompleted,
+      onClick: allCompleted,
     },
     {
       text: 'Mark all as incomplete',
-      onClick: handleAllInComplete,
+      onClick: allInCompleted,
     },
     {
       text: 'Reset to initial',
-      onClick: handleReset,
+      onClick: resetItems,
     },
     {
       text: 'Remove all items',
-      onClick: handleRemoveAll,
+      onClick: removeAllItems,
     },
   ];
 
