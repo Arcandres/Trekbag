@@ -1,4 +1,4 @@
-import { ItemsContextProvider } from './contexts/ItemsContextProvider.jsx';
+// import { ItemsContextProvider } from './contexts/ItemsContextProvider.jsx';
 
 import BackgroundHeading from './components/BackgroundHeading.jsx';
 import Footer from './components/Footer.jsx';
@@ -11,11 +11,11 @@ function App() {
     <>
       <BackgroundHeading />
       <main>
-        <ItemsContextProvider>
-          <Header />
-          <ItemList />
-          <Sidebar />
-        </ItemsContextProvider>
+        {/* <ItemsContextProvider> */}
+        <Header />
+        <ItemList />
+        <Sidebar />
+        {/* </ItemsContextProvider> */}
       </main>
       <Footer />
     </>
