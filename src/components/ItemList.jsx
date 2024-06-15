@@ -33,7 +33,7 @@ export default function ItemList() {
     <ul className='item-list'>
       {!items.length && <EmptyView />}
 
-      {items.length && (
+      {items.length > 0 && (
         <section className='sorting'>
           <Select
             onChange={handleChange}
